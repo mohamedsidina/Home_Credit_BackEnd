@@ -65,5 +65,5 @@ async def predict(data: HomeCredit_Data):
 
 # 5. Run the API with uvicorn
 #    Will run on http://127.0.0.1:8000
-if __name__ == "__backend_main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000, debug=True)
+# if __name__ == "__backend_main__":
+#     uvicorn.run(app, host="127.0.0.1", port=8000, debug=True)
