@@ -5,6 +5,8 @@ import pandas as pd
 import shap
 import pickle
 import json
+import gc
+gc.enable()
 from Credit_Scorer_Class import Credit_Scorer
 from HomeCredit_Data import HomeCredit_Data
 
@@ -50,7 +52,9 @@ async def predict(data: HomeCredit_Data):
     base_value = json.dumps(base_value.tolist())
     shap_local_values = json.dumps(shap_local_values[1].tolist())
     
-    # Return response back to client
+    # Return response back to client & clean memory
+    gc.collect()
+    gc.collect()
     
     return {
         "probabilty": proba_score,
