@@ -1,7 +1,8 @@
 # 1. Library imports
 import uvicorn
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 import pandas as pd
+from downcast import reduce
 import shap
 import pickle
 import json
@@ -33,6 +34,7 @@ async def predict(data: HomeCredit_Data):
     customer_df_data = pd.DataFrame(
         customer_dict_data.values(), index=customer_dict_data.keys()
     ).T
+    customer_df_data = reduce(customer_df_data)
 
     # Predictions
     customer_prediction = scorer.predict(customer_df_data)
@@ -53,6 +55,7 @@ async def predict(data: HomeCredit_Data):
     shap_local_values = json.dumps(shap_local_values[1].tolist())
     
     # Return response back to client & clean memory
+    del customer_df_data
     gc.collect()
     gc.collect()
     
